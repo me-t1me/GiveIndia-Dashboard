@@ -13,7 +13,7 @@
 * if this output shows up then server's run was successful 
 ![image](https://user-images.githubusercontent.com/77455093/123833931-7f234500-d924-11eb-8fa4-2ea352f2f049.png)
 * open cmd inside **client** folder
-* use `npm start` command in cmd
+* use `npm start` command in cmd  
 ![image](https://user-images.githubusercontent.com/77455093/124372100-d23f2400-dca5-11eb-9e44-13a96cf19e17.png)
-* if this output shows up then client's run was successful
+* if this output shows up then client's run was successful  
 ![image](https://user-images.githubusercontent.com/77455093/124372159-5abdc480-dca6-11eb-8506-b884f8a2d666.png)
