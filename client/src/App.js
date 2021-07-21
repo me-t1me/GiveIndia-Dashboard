@@ -1,22 +1,16 @@
 import React from "react";
 
+import SideBar from "./components/SideBar";
 import BarChart from "./components/BarChart";
-// import SearchBar from "./components/SearchBar";
-import SearchProgram from "./components/SearchProgram";
+import ShowList from "./components/ShowList";
 import "./App.css";
 
 const App = () => {
   return (
-    <dir>
-      <div>
-        <SearchProgram />
-      </div>
-      {/* <div>
-        <SearchBar />
-      </div> */}
-      <div>
-        <BarChart />
-      </div>
+    <dir className="App">
+      <SideBar />
+      <BarChart />
+      <ShowList />
     </dir>
   );
 };

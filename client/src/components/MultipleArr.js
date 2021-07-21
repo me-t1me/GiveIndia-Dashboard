@@ -1,5 +1,3 @@
-import { useSelector } from "react-redux";
-
 const noofDays = (month, year) => {
   let lastDate = 0;
   if ([1, 3, 5, 7, 9, 11].indexOf(month) >= 0) {
@@ -14,22 +12,7 @@ const noofDays = (month, year) => {
   return lastDate;
 };
 
-const DataArr = () => {
-  // const data = useSelector((state) => state.allData.data.data);
-  const datat = useSelector((state) => state.bigData[0]);
-  const isMonth = useSelector((state) => state.allData.isMonthMode);
-  let data = 0;
-  if (datat === undefined || datat.length === 0) {
-    return {
-      labels: 0,
-      data: 0,
-      month: 0,
-      year: 0,
-    };
-  } else {
-    data = datat.data.data;
-  }
-
+const MultipleArr = (data, isMonth) => {
   const monthNames = [
     "January",
     "February",
@@ -49,8 +32,7 @@ const DataArr = () => {
     return {
       labels: 0,
       data: 0,
-      month: 0,
-      year: 0,
+      avg: 0,
     };
   } else if (isMonth === true) {
     const month = parseInt(data[0].createdAt.substring(5, 7));
@@ -72,9 +54,12 @@ const DataArr = () => {
       return null;
     });
 
+    const avg = amounts.reduce((a, b) => a + b) / amounts.length;
+
     return {
       labels: dates,
       data: amounts,
+      avg: avg,
     };
   } else if (isMonth === false) {
     let amounts = Array.from({ length: 12 }, (_, i) => 0);
@@ -89,11 +74,13 @@ const DataArr = () => {
       return null;
     });
 
+    const avg = amounts.reduce((a, b) => a + b) / amounts.length;
     return {
       labels: monthNames,
       data: amounts,
+      avg: avg,
     };
   }
 };
 
-export default DataArr;
+export default MultipleArr;
