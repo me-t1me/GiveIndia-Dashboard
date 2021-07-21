@@ -10,7 +10,10 @@
 * open cmd inside **Server** folder
 * use `npm start` command in cmd  
 ![image](https://user-images.githubusercontent.com/77455093/123833647-31a6d800-d924-11eb-8ca0-719ab91527d8.png)
-* if this output showes up then run was successful 
+* if this output shows up then server's run was successful 
 ![image](https://user-images.githubusercontent.com/77455093/123833931-7f234500-d924-11eb-8fa4-2ea352f2f049.png)
-* goto this url `http://localhost:3000/api/getPrograms` for requesting every program
-* goto this url `http://localhost:3000/api/getPrograms/1` where 1 is id of a program
+* open cmd inside **client** folder
+* use `npm start` command in cmd  
+![image](https://user-images.githubusercontent.com/77455093/124372100-d23f2400-dca5-11eb-9e44-13a96cf19e17.png)
+* if this output shows up then client's run was successful  
+![image](https://user-images.githubusercontent.com/77455093/124372159-5abdc480-dca6-11eb-8506-b884f8a2d666.png)
