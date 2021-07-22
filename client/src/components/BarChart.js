@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -21,6 +21,7 @@ const BarChart = () => {
   const isMonth = useSelector((store) => store.allData.isMonthMode);
   const month = useSelector((store) => store.allData.month);
   const year = useSelector((store) => store.allData.year);
+  const [allArr, setAllArr] = useState([]);
 
   const monthNames = [
     "January",
@@ -50,7 +51,9 @@ const BarChart = () => {
   const mapping = () => {
     let arr = [];
     let avgarr = [];
+
     if (bigData !== undefined || bigData.length !== 0) {
+      console.log(bigData);
       bigData.forEach((row) => {
         const randomBetween = (min, max) =>
           min + Math.floor(Math.random() * (max - min + 1));
@@ -74,11 +77,14 @@ const BarChart = () => {
           },
         ];
       });
-      return { arr, avgarr };
+      return [arr, avgarr];
     }
   };
 
-  let { arr, avgarr } = mapping();
+  useEffect(() => {
+    setAllArr(mapping());
+    // eslint-disable-next-line
+  }, [bigData]);
 
   const fetching = async (id) => {
     if (isMonth === true) {
@@ -160,6 +166,7 @@ const BarChart = () => {
   useEffect(() => {
     fetching(id);
     fetchName();
+
     bigData.forEach((row) => {
       dispatch(deleteItem(row.id));
       fetchingMultiple(row.id).then((data) =>
@@ -177,28 +184,36 @@ const BarChart = () => {
     }
   };
 
-  const avgerageOf = avgarr.map((row, key) => {
-    return (
-      <div key={key}>
-        <label>{row.name}</label>
-        <span>&nbsp;&nbsp;&nbsp;{row.avg}&nbsp;Rs</span>
-      </div>
-    );
-  });
+  const check = () => {
+    if (allArr[1] !== undefined) {
+      if (allArr[1].length !== 0) {
+        return allArr[1].map((row, key) => {
+          return (
+            <div key={key}>
+              <label>{row.name}</label>
+              <span>&nbsp;&nbsp;&nbsp;{row.avg}&nbsp;Rs</span>
+            </div>
+          );
+        });
+      }
+    }
+  };
 
   const totalAverages = () => {
-    if (avgarr.length !== 0) {
-      const total =
-        avgarr.reduce((a, b) => {
-          return a + b.avg;
-        }, 0) / avgarr.length;
+    if (allArr[1] !== undefined) {
+      if (allArr[1].length !== 0) {
+        const total =
+          allArr[1].reduce((a, b) => {
+            return a + b.avg;
+          }, 0) / allArr[1].length;
 
-      return (
-        <div>
-          <label>Total Avg of batch</label>
-          <span>&nbsp;&nbsp;&nbsp;{total}&nbsp;Rs</span>
-        </div>
-      );
+        return (
+          <div>
+            <label>Total Avg of batch</label>
+            <span>&nbsp;&nbsp;&nbsp;{total}&nbsp;Rs</span>
+          </div>
+        );
+      }
     }
   };
 
@@ -212,7 +227,7 @@ const BarChart = () => {
         <Line
           data={{
             labels: DataArr().labels,
-            datasets: arr,
+            datasets: allArr[0],
           }}
           height={400}
           width={600}
@@ -223,7 +238,7 @@ const BarChart = () => {
         />
       </div>
       <div>
-        {avgerageOf}
+        {check()}
         {totalAverages()}
       </div>
     </dir>

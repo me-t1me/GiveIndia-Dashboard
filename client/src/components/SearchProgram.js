@@ -74,7 +74,11 @@ const SearchProgram = () => {
         onClick={() => {
           dispatch(storeId(row.id));
           fetching(row.id).then((data) => {
-            dispatch(setBigData(row.id, row.name, row.cause, data));
+            if (data.data.length !== 0) {
+              dispatch(setBigData(row.id, row.name, row.cause, data));
+            } else {
+              alert("No data found");
+            }
           });
         }}
       >
